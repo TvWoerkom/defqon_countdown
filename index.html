@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defqon.1 2027 Countdown</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Righteous&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Righteous', sans-serif;
+            background: #0a0a0a url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23000" width="100" height="100"/><circle cx="50" cy="50" r="1" fill="%23ff1744" opacity="0.3"/><circle cx="20" cy="30" r="1" fill="%23ffd600" opacity="0.2"/></svg>');
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 23, 68, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 255, 200, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 3px solid #ff1744;
+            border-radius: 0;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 23, 68, 0.5), 
+                        inset 0 0 40px rgba(255, 23, 68, 0.2);
+            max-width: 700px;
+            width: 100%;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 40px rgba(255, 23, 68, 0.5), 
+                            inset 0 0 40px rgba(255, 23, 68, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(255, 23, 68, 0.8), 
+                            inset 0 0 60px rgba(255, 23, 68, 0.3);
+            }
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', 'Righteous', sans-serif;
+            color: #ffd600;
+            font-size: 4em;
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px #ff1744, 
+                         0 0 40px rgba(255, 23, 68, 0.6),
+                         3px 3px 0 #ff1744;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #00ffc8;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .message {
+            font-size: 1.3em;
+            color: #ffffff;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .countdown-number {
+            font-size: 4em;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff1744, #ffd600);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline;
+            margin: 0 10px;
+            font-family: 'Bebas Neue', sans-serif;
+            text-shadow: 0 0 20px rgba(255, 23, 68, 0.5);
+            animation: pulse 1s ease-in-out infinite;
+            vertical-align: middle;
+            line-height: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .event-date {
+            color: #ffd600;
+            font-size: 0.9em;
+            margin-top: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .gif-container {
+            margin: 30px 0;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 5px;
+            border: 2px solid #00ffc8;
+            box-shadow: 0 0 20px rgba(0, 255, 200, 0.6);
+        }
+
+        .accent-line {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff1744, #ffd600, #ff1744, transparent);
+            margin: 30px 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                letter-spacing: 2px;
+            }
+
+            .message {
+                font-size: 1em;
+            }
+
+            .countdown-number {
+                font-size: 2.5em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DEFQON.1</h1>
+        <div class="subtitle">2027</div>
+        <div class="accent-line"></div>
+        <div class="message" id="message"></div>
+        <div class="gif-container" id="gifContainer"></div>
+        <div class="accent-line"></div>
+        <div class="event-date" id="eventDate">24 - 28 JUNI 2027</div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            // Event dates: June 24-28, 2027
+            const eventStartDate = new Date(2027, 5, 24, 0, 0, 0).getTime();
+            const eventEndDate = new Date(2027, 5, 28, 23, 59, 59).getTime();
+            // Use actual current date
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const todayTime = today.getTime();
+
+            // Calculate days until the event
+            const daysUntil = Math.ceil((eventStartDate - todayTime) / (1000 * 60 * 60 * 24));
+
+            const messageElement = document.getElementById('message');
+            const gifContainer = document.getElementById('gifContainer');
+
+            if (daysUntil > 0) {
+                // Countdown message
+                const nights = daysUntil;
+                messageElement.innerHTML = `
+                    <div>
+                        Ik zou willen dat ik naar Defqon.<br><br>
+                        Nog maar<br>
+                        <span class="countdown-number">${nights}</span><br>
+                        nachtje${nights !== 1 ? 's' : ''} slapen tot<br>
+                        DEFQON.1 2027
+                    </div>
+                `;
+                // Display sleeping gif
+                gifContainer.innerHTML = '<img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3h5dmQ1ZHVkbHgxdnEwdnJhZGtlZmVndjE2M2Voa3RnZzA0cnpoayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mkhMTALnrYRLnuoe5P/giphy.gif" alt="Sleeping">';
+            } else if (todayTime >= eventStartDate && todayTime <= eventEndDate) {
+                // It's during the event (June 24-28)
+                messageElement.innerHTML = `
+                    <div style="font-size: 1.8em; letter-spacing: 2px;">
+                        WAAROM KIJK JE OP DEZE SITE?<br><br>
+                        HET IS NU DEFQON.1!
+                    </div>
+                `;
+                // Display fireworks gif
+                gifContainer.innerHTML = '<img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHR0Y2lrOHIxZ2lxY2d4bHdjaHMwYnhobmd6czFjbHNqemNjYzl0NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hU91Tq2zbGZynWrTRL/giphy.gif" alt="Power Hour">';
+            } else {
+                // After the event
+                messageElement.innerHTML = `
+                    <div>
+                        Tot ziens op<br><br>
+                        <span style="font-size: 1.5em; color: #ffd600;">DEFQON.1 2028!</span>
+                    </div>
+                `;
+                // Display fireworks gif
+                gifContainer.innerHTML = '<img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHR0Y2lrOHIxZ2lxY2d4bHdjaHMwYnhobmd6czFjbHNqemNjYzl0NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hU91Tq2zbGZynWrTRL/giphy.gif" alt="Power Hour">';
+            }
+        }
+
+        // Update on page load
+        updateCountdown();
+
+        // Update every day at midnight
+        setInterval(updateCountdown, 1000 * 60 * 60 * 24);
+    </script>
+</body>
+</html>
